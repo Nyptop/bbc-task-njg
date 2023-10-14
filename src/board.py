@@ -7,6 +7,13 @@ class Board:
 
     def place_ship(self, ship, position):
         x, y = position
+
+        if ship.orientation == 'horizontal' and x + ship.length - 1 >= self.width:
+            raise ValueError("Ship cannot be placed off the board horizontally")
+
+        if ship.orientation == 'vertical' and y + ship.length - 1 >= self.height:
+            raise ValueError("Ship cannot be placed off the board vertically")
+
         for i in range(ship.length):
             if ship.orientation == 'horizontal':
                 new_position = (x + i, y)

@@ -87,6 +87,26 @@ class TestBoard(unittest.TestCase):
         except Exception as e:
             self.assertIsInstance(e, ValueError)
 
+    def test_ship_cannot_be_placed_off_board_horizontally(self):
+        board = Board()
+        ship = Ship(4, 'horizontal')
+
+        try:
+            board.place_ship(ship, (8, 3))
+            self.fail("Expected an exception for placing the ship off the board horizontally")
+        except Exception as e:
+            self.assertIsInstance(e, ValueError)
+
+    def test_ship_cannot_be_placed_off_board_vertically(self):
+        board = Board()
+        ship = Ship(4, 'vertical')
+
+        try:
+            board.place_ship(ship, (3, 8))
+            self.fail("Expected an exception for placing the ship off the board vertically")
+        except Exception as e:
+            self.assertIsInstance(e, ValueError)
+
     def test_attack_empty_cell_results_in_miss(self):
         board = Board()
 
