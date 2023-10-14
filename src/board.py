@@ -19,3 +19,5 @@ class Board:
     def attack(self, position):
         if self.grid.get(position, None) is None:
             return 'miss'
+        else:
+            return 'hit'

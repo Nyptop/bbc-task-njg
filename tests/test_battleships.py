@@ -54,3 +54,14 @@ class TestBoard(unittest.TestCase):
         attack_result = board.attack(attack_position)
 
         self.assertEqual(attack_result, 'miss', f"Expected 'miss', got {attack_result}")
+
+    def test_attack_ship_cell_results_in_hit(self):
+        board = Board()
+        ship = Ship(3, 'horizontal')
+        start_position = (2, 3)
+        board.place_ship(ship, start_position)
+
+        attack_position = (2, 3)
+        attack_result = board.attack(attack_position)
+
+        self.assertEqual(attack_result, 'hit', f"Expected 'hit', got {attack_result}")
