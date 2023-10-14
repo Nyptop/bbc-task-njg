@@ -5,7 +5,10 @@ class Board:
         self.grid = {}
 
     def place_ship(self, ship, position):
-        self.grid[position] = ship
+        x, y = position
+        if ship.orientation == 'horizontal':
+            for i in range(ship.length):
+                self.grid[(x + i, y)] = ship
 
     def get_ship_at(self, position):
         return self.grid.get(position, None)
