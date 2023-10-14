@@ -56,11 +56,10 @@ class TestBoard(unittest.TestCase):
         board.place_ship(ship1, (2, 3))
 
         # Try to overlap second ship with first
-        try:
+        with self.assertRaises(ValueError) as context:
             board.place_ship(ship2, (3, 3))
-            self.fail("Expected an exception due to overlapping ships")
-        except Exception as e:
-            self.assertIsInstance(e, ValueError)
+
+        self.assertEqual(str(context.exception), "Ships cannot overlap")
 
     def test_ships_do_not_overlap_one_horizontal_one_vertical(self):
         board = Board()
@@ -69,11 +68,10 @@ class TestBoard(unittest.TestCase):
 
         board.place_ship(ship1, (2, 3))
 
-        try:
+        with self.assertRaises(ValueError) as context:
             board.place_ship(ship2, (5, 3))
-            self.fail("Expected an exception due to overlapping ships")
-        except Exception as e:
-            self.assertIsInstance(e, ValueError)
+
+        self.assertEqual(str(context.exception), "Ships cannot overlap")
 
     def test_vertical_ships_do_not_overlap_at_ends(self):
         board = Board()
@@ -82,31 +80,28 @@ class TestBoard(unittest.TestCase):
 
         board.place_ship(ship1, (2, 3))
 
-        try:
+        with self.assertRaises(ValueError) as context:
             board.place_ship(ship2, (2, 6))
-            self.fail("Expected an exception due to overlapping ships")
-        except Exception as e:
-            self.assertIsInstance(e, ValueError)
+
+        self.assertEqual(str(context.exception), "Ships cannot overlap")
 
     def test_ship_cannot_be_placed_off_board_horizontally(self):
         board = Board()
         ship = Ship(4, 'horizontal')
 
-        try:
+        with self.assertRaises(ValueError) as context:
             board.place_ship(ship, (8, 3))
-            self.fail("Expected an exception for placing the ship off the board horizontally")
-        except Exception as e:
-            self.assertIsInstance(e, ValueError)
+
+        self.assertEqual(str(context.exception), "Ship cannot be placed off the board horizontally")
 
     def test_ship_cannot_be_placed_off_board_vertically(self):
         board = Board()
         ship = Ship(4, 'vertical')
 
-        try:
+        with self.assertRaises(ValueError) as context:
             board.place_ship(ship, (3, 8))
-            self.fail("Expected an exception for placing the ship off the board vertically")
-        except Exception as e:
-            self.assertIsInstance(e, ValueError)
+
+        self.assertEqual(str(context.exception), "Ship cannot be placed off the board vertically")
 
     def test_attack_empty_cell_results_in_miss(self):
         board = Board()
