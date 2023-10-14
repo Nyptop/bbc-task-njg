@@ -79,3 +79,18 @@ class TestBoard(unittest.TestCase):
             board.attack(attack_position)
 
         self.assertTrue(ship.is_sunk(), "Expected the ship to be sunk")
+
+    def test_ship_not_sunk_when_same_cell_hit_multiple_times(self):
+        board = Board()
+        ship_length = 3
+        ship = Ship(ship_length, 'horizontal')
+        start_position = (2, 3)
+        board.place_ship(ship, start_position)
+
+        # Hit the same cell of the ship multiple times
+        attack_position = (2, 3)
+        for _ in range(ship_length):
+            board.attack(attack_position)
+
+        self.assertFalse(ship.is_sunk(), ("Ship should not be sunk when "
+                                          "the same cell is hit multiple times"))

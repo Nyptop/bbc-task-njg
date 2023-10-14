@@ -3,6 +3,7 @@ class Board:
         self.width = 10
         self.height = 10
         self.grid = {}
+        self.attacked_positions = set()
 
     def place_ship(self, ship, position):
         x, y = position
@@ -18,6 +19,10 @@ class Board:
 
     def attack(self, position):
         ship = self.grid.get(position, None)
+        if position in self.attacked_positions:
+            return 'already attacked'
+        self.attacked_positions.add(position)
+
         if ship is None:
             return 'miss'
         else:
