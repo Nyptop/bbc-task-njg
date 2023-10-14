@@ -1,8 +1,7 @@
-class Board:
-    def __init__(self):
-        self.width = 10
-        self.height = 10
-        self.grid = {}
+class Ship:
+    def __init__(self, length, orientation):
+        self.length = length
+        self.orientation = orientation
 
     def place_ship(self, ship, position):
         self.grid[position] = ship
