@@ -154,3 +154,41 @@ class TestBoard(unittest.TestCase):
 
         self.assertFalse(ship.is_sunk(), ("Ship should not be sunk when "
                                           "the same cell is hit multiple times"))
+
+    def test_all_ships_sunk_returns_false_when_not_all_ships_are_sunk(self):
+        board = Board()
+
+        ship1 = Ship(3, 'horizontal')
+        ship2 = Ship(2, 'vertical')
+
+        board.place_ship(ship1, (2, 3))
+        board.place_ship(ship2, (4, 4))
+
+        # Sink only the first ship
+        for i in range(3):
+            board.attack((2 + i, 3))
+
+        self.assertFalse(board.all_ships_sunk(), "Expected not all ships to be sunk")
+
+    def test_all_ships_sunk_returns_true_when_all_ships_are_sunk(self):
+        board = Board()
+
+        ship1 = Ship(3, 'horizontal')
+        ship2 = Ship(2, 'vertical')
+        ship3 = Ship(4, 'horizontal')
+
+        board.place_ship(ship1, (2, 3))
+        board.place_ship(ship2, (4, 4))
+        board.place_ship(ship3, (6, 6))
+
+        # Sink all ships
+        for i in range(3):
+            board.attack((2 + i, 3))
+
+        for i in range(2):
+            board.attack((4, 4 + i))
+
+        for i in range(4):
+            board.attack((6 + i, 6))
+
+        self.assertTrue(board.all_ships_sunk(), "Expected all ships to be sunk")

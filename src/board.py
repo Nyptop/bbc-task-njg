@@ -43,3 +43,6 @@ class Board:
         else:
             ship.hits += 1
             return 'hit'
+
+    def all_ships_sunk(self):
+        return all(ship.is_sunk() for ship in set(self.grid.values()))
