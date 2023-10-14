@@ -17,7 +17,9 @@ class Board:
         return self.grid.get(position, None)
 
     def attack(self, position):
-        if self.grid.get(position, None) is None:
+        ship = self.grid.get(position, None)
+        if ship is None:
             return 'miss'
         else:
+            ship.hits += 1
             return 'hit'

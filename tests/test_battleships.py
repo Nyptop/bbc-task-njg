@@ -65,3 +65,17 @@ class TestBoard(unittest.TestCase):
         attack_result = board.attack(attack_position)
 
         self.assertEqual(attack_result, 'hit', f"Expected 'hit', got {attack_result}")
+
+    def test_ship_is_sunk_after_all_cells_hit(self):
+        board = Board()
+        ship_length = 3
+        ship = Ship(ship_length, 'horizontal')
+        start_position = (2, 3)
+        board.place_ship(ship, start_position)
+
+        # Hit all cells
+        for i in range(ship_length):
+            attack_position = (start_position[0] + i, start_position[1])
+            board.attack(attack_position)
+
+        self.assertTrue(ship.is_sunk(), "Expected the ship to be sunk")
