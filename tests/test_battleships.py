@@ -47,6 +47,46 @@ class TestBoard(unittest.TestCase):
             placed_ship = board.get_ship_at(position)
             self.assertIsNotNone(placed_ship, f"No ship found at position {position}")
 
+    def test_horizontal_ships_do_not_overlap(self):
+        board = Board()
+        ship1 = Ship(3, 'horizontal')
+        ship2 = Ship(2, 'horizontal')
+
+        board.place_ship(ship1, (2, 3))
+
+        # Try to overlap second ship with first
+        try:
+            board.place_ship(ship2, (3, 3))
+            self.fail("Expected an exception due to overlapping ships")
+        except Exception as e:
+            self.assertIsInstance(e, ValueError)
+
+    def test_ships_do_not_overlap_one_horizontal_one_vertical(self):
+        board = Board()
+        ship1 = Ship(4, 'horizontal')
+        ship2 = Ship(4, 'vertical')
+
+        board.place_ship(ship1, (2, 3))
+
+        try:
+            board.place_ship(ship2, (5, 3))
+            self.fail("Expected an exception due to overlapping ships")
+        except Exception as e:
+            self.assertIsInstance(e, ValueError)
+
+    def test_vertical_ships_do_not_overlap_at_ends(self):
+        board = Board()
+        ship1 = Ship(4, 'vertical')
+        ship2 = Ship(4, 'vertical')
+
+        board.place_ship(ship1, (2, 3))
+
+        try:
+            board.place_ship(ship2, (2, 6))
+            self.fail("Expected an exception due to overlapping ships")
+        except Exception as e:
+            self.assertIsInstance(e, ValueError)
+
     def test_attack_empty_cell_results_in_miss(self):
         board = Board()
 

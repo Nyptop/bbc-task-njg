@@ -7,6 +7,14 @@ class Board:
 
     def place_ship(self, ship, position):
         x, y = position
+        for i in range(ship.length):
+            if ship.orientation == 'horizontal':
+                new_position = (x + i, y)
+            elif ship.orientation == 'vertical':
+                new_position = (x, y + i)
+            if self.grid.get(new_position, None) is not None:
+                raise ValueError("Ships cannot overlap")
+
         if ship.orientation == 'horizontal':
             for i in range(ship.length):
                 self.grid[(x + i, y)] = ship
