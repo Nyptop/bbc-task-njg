@@ -9,6 +9,9 @@ class Board:
         if ship.orientation == 'horizontal':
             for i in range(ship.length):
                 self.grid[(x + i, y)] = ship
+        elif ship.orientation == 'vertical':
+            for i in range(ship.length):
+                self.grid[(x, y + i)] = ship
 
     def get_ship_at(self, position):
         return self.grid.get(position, None)

@@ -33,3 +33,16 @@ class TestBoard(unittest.TestCase):
             position = (start_position[0] + i, start_position[1])
             placed_ship = board.get_ship_at(position)
             self.assertIsNotNone(placed_ship, f"No ship found at position {position}")
+
+    def test_place_vertical_ship_occupies_correct_cells(self):
+        board = Board()
+        ship_length = 3
+        ship = Ship(ship_length, 'vertical')
+
+        start_position = (2, 3)
+        board.place_ship(ship, start_position)
+
+        for i in range(ship_length):
+            position = (start_position[0], start_position[1] + i)
+            placed_ship = board.get_ship_at(position)
+            self.assertIsNotNone(placed_ship, f"No ship found at position {position}")
