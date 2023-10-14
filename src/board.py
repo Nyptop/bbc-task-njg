@@ -15,3 +15,7 @@ class Board:
 
     def get_ship_at(self, position):
         return self.grid.get(position, None)
+
+    def attack(self, position):
+        if self.grid.get(position, None) is None:
+            return 'miss'

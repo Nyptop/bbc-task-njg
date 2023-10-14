@@ -46,3 +46,11 @@ class TestBoard(unittest.TestCase):
             position = (start_position[0], start_position[1] + i)
             placed_ship = board.get_ship_at(position)
             self.assertIsNotNone(placed_ship, f"No ship found at position {position}")
+
+    def test_attack_empty_cell_results_in_miss(self):
+        board = Board()
+
+        attack_position = (5, 5)
+        attack_result = board.attack(attack_position)
+
+        self.assertEqual(attack_result, 'miss', f"Expected 'miss', got {attack_result}")
