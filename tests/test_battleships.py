@@ -109,6 +109,24 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(self.board.all_ships_sunk(), "Expected all ships to be sunk")
 
 
+class TestShip(unittest.TestCase):
+
+    def test_valid_orientations(self):
+        try:
+            Ship(3, 'horizontal')
+            Ship(4, 'vertical')
+        except ValueError:
+            self.fail("Unexpected ValueError for valid orientations")
+
+    def test_invalid_orientation_raises_value_error(self):
+        with self.assertRaises(ValueError) as context:
+            Ship(3, 'diagonal')
+        self.assertEqual(
+            str(context.exception),
+            "Invalid orientation 'diagonal'. Must be one of ['horizontal', 'vertical']",
+        )
+
+
 class TestPlayer(unittest.TestCase):
 
     def test_player_loses_when_all_ships_are_sunk(self):
