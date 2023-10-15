@@ -7,9 +7,9 @@ class Board:
     of which positions have been attacked.
     """
 
-    def __init__(self):
-        self.width = 10
-        self.height = 10
+    def __init__(self, width=10, height=10):
+        self.width = width
+        self.height = height
         self.grid = {}
         self.attacked_positions = set()
 
