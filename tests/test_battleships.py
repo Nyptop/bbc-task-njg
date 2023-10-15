@@ -108,28 +108,29 @@ class TestBoard(unittest.TestCase):
             self.board.attack((4, 4 + i))
         self.assertTrue(self.board.all_ships_sunk(), "Expected all ships to be sunk")
 
-    class TestPlayer(unittest.TestCase):
 
-        def test_player_loses_when_all_ships_are_sunk(self):
-            board = Board()
+class TestPlayer(unittest.TestCase):
 
-            player = Player(board)
+    def test_player_loses_when_all_ships_are_sunk(self):
+        board = Board()
 
-            ship1 = Ship(3, 'horizontal')
-            ship2 = Ship(2, 'vertical')
-            ship3 = Ship(4, 'horizontal')
+        player = Player(board)
 
-            board.place_ship(ship1, (2, 3))
-            board.place_ship(ship2, (4, 4))
-            board.place_ship(ship3, (6, 6))
+        ship1 = Ship(3, 'horizontal')
+        ship2 = Ship(2, 'vertical')
+        ship3 = Ship(4, 'horizontal')
 
-            for i in range(3):
-                player.attack_position((2 + i, 3))
+        board.place_ship(ship1, (2, 3))
+        board.place_ship(ship2, (4, 4))
+        board.place_ship(ship3, (6, 6))
 
-            for i in range(2):
-                player.attack_position((4, 4 + i))
+        for i in range(3):
+            player.attack_position((2 + i, 3))
 
-            for i in range(4):
-                player.attack_position((6 + i, 6))
+        for i in range(2):
+            player.attack_position((4, 4 + i))
 
-            self.assertTrue(player.has_lost(), "Expected the player to have lost")
+        for i in range(4):
+            player.attack_position((6 + i, 6))
+
+        self.assertTrue(player.has_lost(), "Expected the player to have lost")
