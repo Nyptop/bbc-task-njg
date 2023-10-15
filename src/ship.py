@@ -1,4 +1,10 @@
 class Ship:
+    """
+    Represents a ship in the game of Battleship.
+
+    The ship has a specified length and orientation, and it keeps track of how many times it
+    has been hit. A ship is considered sunk when the number of hits it has taken equals its length.
+    """
     VALID_ORIENTATIONS = ['horizontal', 'vertical']
 
     def __init__(self, length, orientation):

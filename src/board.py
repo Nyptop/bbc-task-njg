@@ -1,4 +1,12 @@
 class Board:
+    """
+    Represents the game board for Battleship.
+
+    The board is a grid with a default size of 10x10 where ships can be placed.
+    Players can attack specific positions on the board, and the board keeps track
+    of which positions have been attacked.
+    """
+
     def __init__(self):
         self.width = 10
         self.height = 10
