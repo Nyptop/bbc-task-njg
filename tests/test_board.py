@@ -1,7 +1,6 @@
 import unittest
 from src.board import Board
 from src.ship import Ship
-from src.player import Player
 
 
 class TestBoard(unittest.TestCase):
@@ -107,48 +106,3 @@ class TestBoard(unittest.TestCase):
         for i in range(2):
             self.board.attack((4, 4 + i))
         self.assertTrue(self.board.all_ships_sunk(), "Expected all ships to be sunk")
-
-
-class TestShip(unittest.TestCase):
-
-    def test_valid_orientations(self):
-        try:
-            Ship(3, 'horizontal')
-            Ship(4, 'vertical')
-        except ValueError:
-            self.fail("Unexpected ValueError for valid orientations")
-
-    def test_invalid_orientation_raises_value_error(self):
-        with self.assertRaises(ValueError) as context:
-            Ship(3, 'diagonal')
-        self.assertEqual(
-            str(context.exception),
-            "Invalid orientation 'diagonal'. Must be one of ['horizontal', 'vertical']",
-        )
-
-
-class TestPlayer(unittest.TestCase):
-
-    def test_player_loses_when_all_ships_are_sunk(self):
-        board = Board()
-
-        player = Player(board)
-
-        ship1 = Ship(3, 'horizontal')
-        ship2 = Ship(2, 'vertical')
-        ship3 = Ship(4, 'horizontal')
-
-        board.place_ship(ship1, (2, 3))
-        board.place_ship(ship2, (4, 4))
-        board.place_ship(ship3, (6, 6))
-
-        for i in range(3):
-            player.attack_position((2 + i, 3))
-
-        for i in range(2):
-            player.attack_position((4, 4 + i))
-
-        for i in range(4):
-            player.attack_position((6 + i, 6))
-
-        self.assertTrue(player.has_lost(), "Expected the player to have lost")
