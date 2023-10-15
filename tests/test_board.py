@@ -60,12 +60,12 @@ class TestBoard(unittest.TestCase):
     def test_ship_cannot_be_placed_off_board_horizontally(self):
         with self.assertRaises(ValueError) as context:
             self.place_ship(4, 'horizontal', (8, 3))
-        self.assertEqual(str(context.exception), "Ship cannot be placed off the board horizontally")
+        self.assertEqual(str(context.exception), "Ship cannot be placed off the board")
 
     def test_ship_cannot_be_placed_off_board_vertically(self):
         with self.assertRaises(ValueError) as context:
             self.place_ship(4, 'vertical', (3, 8))
-        self.assertEqual(str(context.exception), "Ship cannot be placed off the board vertically")
+        self.assertEqual(str(context.exception), "Ship cannot be placed off the board")
 
     def test_attack_empty_cell_results_in_miss(self):
         attack_result = self.board.attack((5, 5))

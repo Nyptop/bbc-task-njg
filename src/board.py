@@ -13,23 +13,31 @@ class Board:
         self.grid = {}
         self.attacked_positions = set()
 
-    def place_ship(self, ship, position):
+    def is_valid_position(self, ship, position):
         x, y = position
-
         if ship.orientation == 'horizontal' and x + ship.length - 1 >= self.width:
-            raise ValueError("Ship cannot be placed off the board horizontally")
-
+            return False
         if ship.orientation == 'vertical' and y + ship.length - 1 >= self.height:
-            raise ValueError("Ship cannot be placed off the board vertically")
+            return False
+        return True
 
+    def is_overlap(self, ship, position):
+        x, y = position
         for i in range(ship.length):
             if ship.orientation == 'horizontal':
                 new_position = (x + i, y)
             elif ship.orientation == 'vertical':
                 new_position = (x, y + i)
             if self.grid.get(new_position, None) is not None:
-                raise ValueError("Ships cannot overlap")
+                return True
+        return False
 
+    def place_ship(self, ship, position):
+        if not self.is_valid_position(ship, position):
+            raise ValueError("Ship cannot be placed off the board")
+        if self.is_overlap(ship, position):
+            raise ValueError("Ships cannot overlap")
+        x, y = position
         if ship.orientation == 'horizontal':
             for i in range(ship.length):
                 self.grid[(x + i, y)] = ship
